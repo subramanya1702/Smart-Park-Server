@@ -1,15 +1,18 @@
 const express = require('express');
-const mongoose = require("mongoose");
 const parkingLotRouter = require('./route/ParkingLotRoute');
+const mongoose = require("mongoose");
 
+//TODO: Add unit tests
+//TODO: Do not hard code connection string and other similar stuff. Fetch from a config file
 const app = express();
+const url = "mongodb://127.0.0.1:27017/plv_detection_data";
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use('/parking_lots', parkingLotRouter);
 
 mongoose.connect(
-    "mongodb://127.0.0.1:27011/recent_parking_lots",
+    url,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,

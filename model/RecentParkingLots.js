@@ -7,11 +7,11 @@ const parkingLotSchema = new Schema({
     name: String,
     emptySpaces: Number,
     totalSpaces: Number,
-    timestamp: String,
-    ogImageUrl: String,
-    predImageUrl: String,
+    timestamp: Number,
+    ogImage: Buffer,
+    predImage: Buffer,
     timeLimit: String,
-    charges: String
+    charges: Number
 });
 
-module.exports = mongoose.model("RecentParkingLots", parkingLotSchema);
+module.exports = mongoose.model("recentParkingLots", parkingLotSchema, "recentParkingLots");
