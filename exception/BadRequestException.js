@@ -1,3 +1,6 @@
+/**
+ * BadRequestException class
+ */
 class BadRequestException extends Error {
     constructor(message) {
         super(message);

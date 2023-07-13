@@ -1,7 +1,7 @@
 const express = require('express');
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const parkingLotRouter = require('./route/ParkingLotRoute');
-const config = require("./config");
+const config = require('./config');
 
 const app = express();
 const url = config.mongo.connection_string;
@@ -20,17 +20,17 @@ mongoose.connect(
         useNewUrlParser: true,
         useUnifiedTopology: true,
     },
-    err => {
+    (err) => {
         if (err) {
-            console.log("Unable to connect to MongoDB. " + err.message);
+            console.log('Unable to connect to MongoDB. ' + err.message);
         } else {
-            console.log("Connected to MongoDB");
+            console.log('Connected to MongoDB');
         }
-    }
+    },
 );
 
 app.listen(8080, () => {
-    console.log("Server is running on port 8080");
+    console.log('Server is running on port 8080');
 });
 
 module.exports = app;

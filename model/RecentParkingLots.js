@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const parkingLotSchema = new Schema({
@@ -9,9 +9,8 @@ const parkingLotSchema = new Schema({
     totalSpaces: Number,
     timestamp: Number,
     ogImage: Buffer,
-    predImage: Buffer,
     timeLimit: String,
     charges: Number
 });
 
-module.exports = mongoose.model("recentParkingLots", parkingLotSchema, "recentParkingLots");
+module.exports = mongoose.model('recentParkingLots', parkingLotSchema, 'recentParkingLots');

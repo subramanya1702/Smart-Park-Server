@@ -1,5 +1,5 @@
-const parkingLotService = require("../service/ParkingLotService");
-const BadRequestException = require("../exception/BadRequestException");
+const parkingLotService = require('../service/ParkingLotService');
+const BadRequestException = require('../exception/BadRequestException');
 
 /**
  * Controller to fetch all recent parking lots
@@ -14,10 +14,10 @@ exports.getAllRecentParkingLots = async (req, res) => {
         const parkingLots = await parkingLotService.getAllRecentParkingLots();
         res.json({data: parkingLots});
     } catch (err) {
-        console.log("Error while fetching data from database.\n" + err.message);
-        res.status(500).json({error: "Internal Server Error"});
+        console.log('Error while fetching data from database.\n' + err.message);
+        res.status(500).json({error: 'Internal Server Error'});
     }
-}
+};
 
 /**
  * Controller to get an image of a parking lot
@@ -37,8 +37,8 @@ exports.getImageByParkingLotId = async (req, res) => {
             console.log(err.message);
             res.status(400).json({error: err.message});
         } else {
-            console.log("Error while fetching image from database.\n" + err.message);
-            res.status(500).json({error: "Internal Server Error"});
+            console.log('Error while fetching image from database.\n' + err.message);
+            res.status(500).json({error: 'Internal Server Error'});
         }
     }
-}
+};
