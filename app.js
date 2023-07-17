@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 const parkingLotRouter = require('./route/ParkingLotRoute');
 const config = require('./config');
 
-const app = express();
 const url = config.mongo.connection_string;
+let maxTries = 0;
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -14,23 +15,39 @@ app.use('/parking_lots', parkingLotRouter);
  * Connects to mongo database.
  * Logs any connection errors.
  */
-mongoose.connect(
+function connectToDb() {
+  mongoose.connect(
     url,
     {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     },
-    (err) => {
-        if (err) {
-            console.log('Unable to connect to MongoDB. ' + err.message);
-        } else {
-            console.log('Connected to MongoDB');
-        }
-    },
-);
+  ).then(() => {
+    console.log(`Connected to MongoDB: ${url}`);
+  }).catch((err) => {
+      maxTries++;
+      console.log(`Attempt ${maxTries}. Unable to connect to MongoDB.\n${err}`);
 
-app.listen(8080, () => {
-    console.log('Server is running on port 8080');
-});
+      if (maxTries === config.maxTries) {
+        process.exit(1);
+      }
+
+      setTimeout(connectToDb, 10000);
+    },
+  );
+}
+
+/**
+ * Entrypoint
+ */
+function main() {
+  connectToDb();
+
+  app.listen(config.port, () => {
+    console.log(`Server is running on port ${config.port}`);
+  });
+}
+
+main();
 
 module.exports = app;
