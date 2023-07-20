@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const parkingLotRouter = require('./route/ParkingLotRoute');
 const config = require('./config');
+const scheduler = require('./scheduler/CleanUpDbScheduler');
 
 const url = config.mongo.connection_string;
 let maxTries = 0;
