@@ -68,7 +68,7 @@ docker build -t spserver .
 2. Run a container with the above image
 
 ```sh
-docker run -dp {port}:{port} --env DB_CONN_STR={MONGO_CONNECTION_STRING} HOSTNAME={NODE_JS_SERVER_HOSTNAME} --name spserver spserver 
+docker run -dp {port}:{port} --env DB_CONN_STR={MONGO_CONNECTION_STRING} --env HOSTNAME={NODE_JS_SERVER_HOSTNAME} --name spserver spserver 
 ```
 
 DB_CONN_STR is an optional environment variable that has to be passed when the node js application and database are running on different
