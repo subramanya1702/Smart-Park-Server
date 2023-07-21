@@ -11,7 +11,7 @@ let parkingLotTwo = new RecentParkingLot();
 chai.should();
 chai.use(chaiHttp);
 
-describe('ParkingLot', () => {
+describe('Parking Lot Test', () => {
     before((done) => {
         cleanUpDatabase().then(() => {
             populateDummyRecords().then(() => {

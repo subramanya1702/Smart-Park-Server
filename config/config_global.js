@@ -1,6 +1,7 @@
 const config = {};
 config.port = 8080;
 config.maxTries = 5;
+config.cron = '0 3 * * *';
 config.hostname = `http://localhost:${config.port}`;
 
 config.mongo = {};

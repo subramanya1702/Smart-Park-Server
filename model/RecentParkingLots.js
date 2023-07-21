@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const parkingLotSchema = new Schema({
+const recentParkingLotSchema = new Schema({
     latitude: String,
     longitude: String,
     name: String,
@@ -13,4 +13,4 @@ const parkingLotSchema = new Schema({
     charges: Number
 });
 
-module.exports = mongoose.model('recentParkingLots', parkingLotSchema, 'recentParkingLots');
+module.exports = mongoose.model('recentParkingLots', recentParkingLotSchema, 'recentParkingLots');

@@ -8,9 +8,9 @@ const ObjectId = require('mongoose').Types.ObjectId;
  * @return {Promise<array>}
  */
 exports.getAllRecentParkingLots = async () => {
-    const parkingLot = await RecentParkingLot.find().lean();
+    const recentParkingLots = await RecentParkingLot.find().lean();
 
-    return parkingLot.map((parkingLot) => {
+    return recentParkingLots.map((parkingLot) => {
         return {
             latitude: parkingLot.latitude,
             longitude: parkingLot.longitude,
