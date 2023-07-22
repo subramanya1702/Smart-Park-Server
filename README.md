@@ -9,10 +9,7 @@ A node js application that provides information about all available parking lots
 * Docker
 
 ### Setting up Mongodb
-#### Without Docker
-1. Install and run mongodb by following the instructions over [here](https://www.mongodb.com/docs/manual/installation/)
 
-#### With Docker
 1. Download the mongodb image
 
 ```sh
@@ -25,7 +22,10 @@ docker pull mongo:6.0
 docker run -dp 27017:27017 --name mongo mongo:6.0
 ```
 
-### Installation
+3. If you want to run mongodb without docker, go ahead and install mongodb by following the instructions over [here](https://www.mongodb.com/docs/manual/installation/)
+
+
+### Usage
 
 1. Clone the repository
 
@@ -39,52 +39,52 @@ git clone git@github.com:subramanya1702/Smart-Park-Server.git
 cd Smart-Park-Server
 ```
 
-### Usage
+If you want to run the application without docker, skip to [this](#run-without-docker) section
 
-#### Without Docker
+3. Build/create an image
 
-1. Install dependencies
+```sh
+docker build -t spserver .
+```
+
+4. Run a container with the above image
+
+```sh
+docker run -dp {port}:{port} --env DB_CONN_STR={MONGO_CONNECTION_STRING} --env HOSTNAME={NODE_JS_SERVER_HOSTNAME} --name spserver spserver 
+```
+
+DB_CONN_STR is the mongodb connection string that needs to be passed as an environment variable to the container.
+
+Example:
+
+* Using database server's DNS: DB_CONN_STR=db.domain.com:{port}
+* Using database server's public/external IP: DB_CONN_STR=x.x.x.x:{port}
+* Testing locally: DB_CONN_STR=localhost:{port} or DB_CONN_STR=127.0.0.1:{port}
+
+HOSTNAME is an optional environment variable that has to be passed if the application is being run in prod mode.
+If the application is running in dev mode (running locally), it can be skipped.
+
+Example:
+
+* Using node js server's DNS: `HOSTNAME=njs.domain.com`
+* Using node js server's public/external IP `HOSTNAME=x.x.x.x`
+
+
+#### Run without Docker
+
+3. Install dependencies
 
 ```sh
 npm install
 ```
 
-2. Run the application
+4. Run the application
 
 ```sh
 npm run start:{profile}
 ```
 
 The profile can be dev, prod or test
-
-#### With Docker
-
-1. Build/create an image
-
-```sh
-docker build -t spserver .
-```
-
-2. Run a container with the above image
-
-```sh
-docker run -dp {port}:{port} --env DB_CONN_STR={MONGO_CONNECTION_STRING} --env HOSTNAME={NODE_JS_SERVER_HOSTNAME} --name spserver spserver 
-```
-
-DB_CONN_STR is an optional environment variable that has to be passed when the node js application and database are running on different
-servers.
-If not, it can be skipped.
-Example:
-
-* Using database server's DNS: `DB_CONN_STR=db.domain.com:{port}`
-* Using database server's public/external IP: `DB_CONN_STR=x.x.x.x:{port}`
-
-HOSTNAME is an optional environment variable that has to be passed if the application is being run in prod mode.
-If the application is running in dev mode, it can be skipped.
-Example:
-
-* Using node js server's DNS: `HOSTNAME=njs.domain.com`
-* Using node js server's public/external IP `HOSTNAME=x.x.x.x`
 
 ### API Documentation
 
