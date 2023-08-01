@@ -83,6 +83,7 @@ function cleanUpDatabase() {
 function populateDummyRecords() {
     const bufferOne = fs.readFileSync(__dirname + '/Parking lot one.jpeg');
     parkingLotOne = new RecentParkingLot({
+            id: '55544f13-fbc4-434a-b0c2-d9428e24163f',
             latitude: '51.22',
             longitude: '-51.22',
             name: 'Lot 1',
@@ -97,6 +98,7 @@ function populateDummyRecords() {
 
     const bufferTwo = fs.readFileSync(__dirname + '/Parking lot two.jpeg');
     parkingLotTwo = new RecentParkingLot({
+            id: '45544f13-fbc4-434a-b0c2-d9428e24162f',
             latitude: '41.22',
             longitude: '-41.22',
             name: 'Lot 2',
