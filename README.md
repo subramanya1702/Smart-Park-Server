@@ -107,6 +107,7 @@ Content-Type: application/json
 {
     "data": [
         {
+            "id": "64c9e920e9b30105a42ee879",
             "latitude": "44.56298278509426",
             "longitude": "-123.27235573138302",
             "parking_lot_name": "Tebeau Hall",

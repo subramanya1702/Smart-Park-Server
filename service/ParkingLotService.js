@@ -12,6 +12,7 @@ exports.getAllRecentParkingLots = async () => {
 
     return recentParkingLots.map((parkingLot) => {
         return {
+            id: parkingLot._id,
             latitude: parkingLot.latitude,
             longitude: parkingLot.longitude,
             parking_lot_name: parkingLot.name,
