@@ -10,6 +10,10 @@ A node js application that provides information about all available parking lots
 
 ### Setting up Mongodb
 
+If you want to run mongodb without docker, go ahead and install mongodb by following the instructions over [here.](https://www.mongodb.com/docs/manual/installation/)
+If not, follow the below steps.
+
+
 1. Download the mongodb image
 
 ```sh
@@ -22,55 +26,23 @@ docker pull mongo:6.0
 docker run -dp 27017:27017 --name mongo mongo:6.0
 ```
 
-3. If you want to run mongodb without docker, go ahead and install mongodb by following the instructions over [here](https://www.mongodb.com/docs/manual/installation/)
-
 
 ### Usage
+
+If you want to run the application as a docker container, check out the instructions over [here.](https://github.com/subramanya1702/Smart-Park#iii-setting-up-nodejs-application)
+If not, follow the below steps.
 
 1. Clone the repository
 
 ```sh
-git clone git@github.com:subramanya1702/Smart-Park-Server.git
+git clone https://github.com/subramanya1702/SmartPark-REST-API.git
 ```
 
 2. Navigate to the project directory
 
 ```sh
-cd Smart-Park-Server
+cd SmartPark-REST-API
 ```
-
-If you want to run the application without docker, skip to [this](#run-without-docker) section
-
-3. Build/create an image
-
-```sh
-docker build -t spserver .
-```
-
-4. Run a container with the above image
-
-```sh
-docker run -dp {port}:{port} --env DB_CONN_STR={MONGO_CONNECTION_STRING} --env HOSTNAME={NODE_JS_SERVER_HOSTNAME} --name spserver spserver 
-```
-
-DB_CONN_STR is the mongodb connection string that needs to be passed as an environment variable to the container.
-
-Example:
-
-* Using database server's DNS: DB_CONN_STR=db.domain.com:{port}
-* Using database server's public/external IP: DB_CONN_STR=x.x.x.x:{port}
-* Testing locally: DB_CONN_STR=localhost:{port} or DB_CONN_STR=127.0.0.1:{port}
-
-HOSTNAME is an optional environment variable that has to be passed if the application is being run in prod mode.
-If the application is running in dev mode (running locally), it can be skipped.
-
-Example:
-
-* Using node js server's DNS: `HOSTNAME=njs.domain.com`
-* Using node js server's public/external IP `HOSTNAME=x.x.x.x`
-
-
-#### Run without Docker
 
 3. Install dependencies
 
@@ -105,7 +77,7 @@ Status: 200 OK
 Content-Type: application/json
 
 {
-    "data": [
+    "parking_lots": [
         {
             "id": "64c9e920e9b30105a42ee879",
             "latitude": "44.56298278509426",
