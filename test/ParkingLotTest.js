@@ -27,8 +27,8 @@ describe('Parking Lot Test', () => {
                 .get('/parking_lots')
                 .end((err, res) => {
                     res.should.have.status(200);
-                    res.body.data.should.be.a('array');
-                    res.body.data.length.should.be.eql(2);
+                    res.body.parking_lots.should.be.a('array');
+                    res.body.parking_lots.length.should.be.eql(2);
                     done();
                 });
         });

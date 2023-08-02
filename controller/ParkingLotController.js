@@ -12,7 +12,7 @@ const BadRequestException = require('../exception/BadRequestException');
 exports.getAllRecentParkingLots = async (req, res) => {
     try {
         const parkingLots = await parkingLotService.getAllRecentParkingLots();
-        res.json({data: parkingLots});
+        res.json({parking_lots: parkingLots});
     } catch (err) {
         console.log('Error while fetching data from database.\n' + err.message);
         res.status(500).json({error: 'Internal Server Error'});
