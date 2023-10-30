@@ -5,7 +5,7 @@ if (process.env.DB_CONN_STR != null) {
 }
 
 if (process.env.SERVER_HOSTNAME != null) {
-  config.hostname = `https://${process.env.SERVER_HOSTNAME}:${config.port}`;
+  config.hostname = `http://${process.env.SERVER_HOSTNAME}:${config.port}`;
 }
 
 module.exports = config;
