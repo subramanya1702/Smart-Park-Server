@@ -16,12 +16,12 @@ exports.getAllRecentParkingLots = async () => {
             latitude: parseFloat(parkingLot.latitude),
             longitude: parseFloat(parkingLot.longitude),
             parking_lot_name: parkingLot.name,
-            number_of_empty_parking_slots: parkingLot.emptySpaces,
-            total_number_of_parking_lots: parkingLot.totalSpaces,
+            number_of_empty_parking_spaces: parkingLot.emptySpaces,
+            total_number_of_parking_spaces: parkingLot.totalSpaces,
             timestamp: timestampToFormattedDate(parkingLot.timestamp),
             image_url: `${config.hostname}/parking_lots/${parkingLot._id}/image`,
             parking_lot_time_limit: parkingLot.timeLimit,
-            parking_charges: parkingLot.charges,
+            parking_charges_in_dollars_per_hour: parkingLot.charges,
         };
     });
 };
