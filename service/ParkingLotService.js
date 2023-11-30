@@ -2,6 +2,7 @@ const RecentParkingLot = require('../model/RecentParkingLots');
 const config = require('../config');
 const BadRequestException = require('../exception/BadRequestException');
 const ObjectId = require('mongoose').Types.ObjectId;
+const imageType = require('../enum/ImageType');
 
 /**
  * Fetches all recent parking lots from database.
@@ -19,7 +20,8 @@ exports.getAllRecentParkingLots = async () => {
             number_of_empty_parking_spaces: parkingLot.emptySpaces,
             total_number_of_parking_spaces: parkingLot.totalSpaces,
             timestamp: timestampToFormattedDate(parkingLot.timestamp),
-            image_url: `${config.hostname}/parking_lots/${parkingLot._id}/image`,
+            original_image_url: `${config.hostname}/parking_lots/${parkingLot._id}/image?type=originalImage`,
+            labelled_image_url: `${config.hostname}/parking_lots/${parkingLot._id}/image?type=labelledImage`,
             parking_lot_time_limit: parkingLot.timeLimit,
             parking_charges_in_dollars_per_hour: parkingLot.charges,
         };
@@ -29,21 +31,34 @@ exports.getAllRecentParkingLots = async () => {
 /**
  * Fetches the original image of a parking lot using its id from database.
  * @param {String} id
+ * @param {String} type
  * @return {Promise<ArrayBuffer>}
  *
  * @throws BadRequestException
  */
-exports.getImageByParkingLotId = async (id) => {
+exports.getImageByParkingLotId = async (id, type) => {
     if (!ObjectId.isValid(id)) {
         throw new BadRequestException(`Invalid Id. Document with id: ${id} does not exists.`);
     }
 
     const parkingLot = await RecentParkingLot.findById(id).lean();
 
-    return parkingLot.ogImage.buffer;
+    switch (type) {
+        case imageType.ORIGINAL_IMAGE:
+            return parkingLot.ogImage.buffer;
+        case imageType.LABELLED_IMAGE:
+            return parkingLot.predImage.buffer;
+        default:
+            throw new BadRequestException(`Invalid type: ${type}`);
+    }
 };
 
 
+/**
+ * Converts the given timestamp from epoch milliseconds to YYYY-MM-DD hh-mm-ss format
+ * @param {Int} timestamp
+ * @return {String}
+ */
 function timestampToFormattedDate(timestamp) {
     const date = new Date(timestamp * 1000);
     const year = date.getFullYear();

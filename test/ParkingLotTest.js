@@ -34,11 +34,25 @@ describe('Parking Lot Test', () => {
         });
     });
 
-    describe('GET image with a valid parking lot id', () => {
-        it('it should get an image of the parking lot using parking lot id', (done) => {
+    describe('GET original image with a valid parking lot id', () => {
+        it('it should get an original image of the parking lot using parking lot id', (done) => {
             chai
                 .request(app)
-                .get(`/parking_lots/${parkingLotOne._id.toString()}/image`)
+                .get(`/parking_lots/${parkingLotOne._id.toString()}/image?type=originalImage`)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.type.should.be.eq('image/jpeg');
+                    res.body.should.be.instanceof(Buffer);
+                    done();
+                });
+        });
+    });
+
+    describe('GET labelled image with a valid parking lot id', () => {
+        it('it should get a labelled image of the parking lot using parking lot id', (done) => {
+            chai
+                .request(app)
+                .get(`/parking_lots/${parkingLotOne._id.toString()}/image?type=labelledImage`)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.type.should.be.eq('image/jpeg');
@@ -91,6 +105,7 @@ function populateDummyRecords() {
             totalSpaces: 20,
             timestamp: 14354545,
             ogImage: bufferOne,
+            predImage: bufferOne,
             timeLimit: '9:30AM to 5:30PM',
             charges: 2,
         },
@@ -106,6 +121,7 @@ function populateDummyRecords() {
             totalSpaces: 30,
             timestamp: 15354545,
             ogImage: bufferTwo,
+            predImage: bufferTwo,
             timeLimit: '9:30AM to 5:30PM',
             charges: 2.5,
         },

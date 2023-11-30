@@ -10,6 +10,7 @@ const recentParkingLotSchema = new Schema({
     totalSpaces: Number,
     timestamp: Number,
     ogImage: Buffer,
+    predImage: Buffer,
     timeLimit: String,
     charges: Number
 });
