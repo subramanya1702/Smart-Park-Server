@@ -79,16 +79,17 @@ Content-Type: application/json
 {
     "parking_lots": [
         {
-            "id": "64c9e920e9b30105a42ee879",
-            "latitude": "44.56298278509426",
-            "longitude": "-123.27235573138302",
+            "id": "653b6b84613f023b8478bcf7",
+            "latitude": 44.56298278509426,
+            "longitude": -123.27235573138302,
             "parking_lot_name": "Tebeau Hall",
-            "number_of_empty_parking_slots": 26,
-            "total_number_of_parking_lots": 41,
-            "timestamp": 1689686934,
-            "image_url": "http://localhost:8080/parking_lots/64b6939ddb1963c3c317dd20/image",
+            "number_of_empty_parking_spaces": 18,
+            "total_number_of_parking_spaces": 41,
+            "timestamp": "2023-11-30 01:05:33",
+            "original_image_url": "http://HOST_NAME:8080/parking_lots/653b6b84613f023b8478bcf7/image?type=originalImage",
+            "labelled_image_url": "http://HOST_NAME:8080/parking_lots/653b6b84613f023b8478bcf7/image?type=labelledImage",
             "parking_lot_time_limit": "2 Hr Parking [ 8.30 am to 5.30 am]",
-            "parking_charges": 2
+            "parking_charges_in_dollars_per_hour": 2
         }
     ]
 }
@@ -96,10 +97,10 @@ Content-Type: application/json
 
 #### Request
 
-`GET /parking_lots/{parking_lot_id}/image`
+`GET /parking_lots/{parking_lot_id}/image?type={type}`
 
 ```sh
-curl -o image.png http://localhost:8080/parking_lots/{parking_lot_id}/image
+curl -o image.png http://localhost:8080/parking_lots/{parking_lot_id}/image?type={type}
 ```
 
 #### Response
