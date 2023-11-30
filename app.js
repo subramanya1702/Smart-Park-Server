@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const parkingLotRouter = require('./route/ParkingLotRoute');
 const config = require('./config');
+const cleanUpScheduler = require('./scheduler/CleanUpDbScheduler');
 
 const url = config.mongo.connection_string;
 let maxTries = 0;
@@ -42,6 +43,8 @@ function connectToDb() {
  */
 function main() {
   connectToDb();
+
+  cleanUpScheduler.cronJob.start();
 
   app.listen(config.port, () => {
     console.log(`Server is running on port ${config.port}`);

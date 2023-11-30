@@ -29,7 +29,7 @@ exports.getAllRecentParkingLots = async (req, res) => {
  */
 exports.getImageByParkingLotId = async (req, res) => {
     try {
-        const imagePath = await parkingLotService.getImageByParkingLotId(req.params.id);
+        const imagePath = await parkingLotService.getImageByParkingLotId(req.params.id, req.query.type);
         res.setHeader('Content-Type', 'image/jpeg');
         res.send(imagePath);
     } catch (err) {
