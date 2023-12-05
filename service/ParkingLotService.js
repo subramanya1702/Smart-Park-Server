@@ -1,7 +1,7 @@
 const RecentParkingLot = require('../model/RecentParkingLots');
+const ParKingLotHistory = require('../model/ParkingLotHistory');
 const config = require('../config');
 const BadRequestException = require('../exception/BadRequestException');
-const ObjectId = require('mongoose').Types.ObjectId;
 const imageType = require('../enum/ImageType');
 
 /**
@@ -13,15 +13,15 @@ exports.getAllRecentParkingLots = async () => {
 
     return recentParkingLots.map((parkingLot) => {
         return {
-            id: parkingLot._id,
+            id: parkingLot.id,
             latitude: parseFloat(parkingLot.latitude),
             longitude: parseFloat(parkingLot.longitude),
             parking_lot_name: parkingLot.name,
             number_of_empty_parking_spaces: parkingLot.emptySpaces,
             total_number_of_parking_spaces: parkingLot.totalSpaces,
             timestamp: timestampToFormattedDate(parkingLot.timestamp),
-            original_image_url: `${config.hostname}/parking_lots/${parkingLot._id}/image?type=originalImage`,
-            labelled_image_url: `${config.hostname}/parking_lots/${parkingLot._id}/image?type=labelledImage`,
+            original_image_url: `${config.hostname}/parking_lots/${parkingLot.id}/image?type=originalImage`,
+            labelled_image_url: `${config.hostname}/parking_lots/${parkingLot.id}/image?type=labelledImage`,
             parking_lot_time_limit: parkingLot.timeLimit,
             parking_charges_in_dollars_per_hour: parkingLot.charges,
         };
@@ -37,11 +37,19 @@ exports.getAllRecentParkingLots = async () => {
  * @throws BadRequestException
  */
 exports.getImageByParkingLotId = async (id, type) => {
-    if (!ObjectId.isValid(id)) {
-        throw new BadRequestException(`Invalid Id. Document with id: ${id} does not exists.`);
-    }
+    // if (!ObjectId.isValid(id)) {
+    //     throw new BadRequestException(`Invalid Id. Document with id: ${id} does not exists.`);
+    // }
 
-    const parkingLot = await RecentParkingLot.findById(id).lean();
+    let parkingLot = await RecentParkingLot.findOne({id: id}).lean();
+
+    if (!parkingLot) {
+        parkingLot = await ParKingLotHistory.findOne({id: id}).lean();
+
+        if (!parkingLot) {
+            throw new BadRequestException(`Invalid Id. Document with id: ${id} does not exists.`);
+        }
+    }
 
     switch (type) {
         case imageType.ORIGINAL_IMAGE:

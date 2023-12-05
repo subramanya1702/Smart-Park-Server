@@ -38,7 +38,7 @@ describe('Parking Lot Test', () => {
         it('it should get an original image of the parking lot using parking lot id', (done) => {
             chai
                 .request(app)
-                .get(`/parking_lots/${parkingLotOne._id.toString()}/image?type=originalImage`)
+                .get(`/parking_lots/${parkingLotOne.id.toString()}/image?type=originalImage`)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.type.should.be.eq('image/jpeg');
@@ -52,7 +52,7 @@ describe('Parking Lot Test', () => {
         it('it should get a labelled image of the parking lot using parking lot id', (done) => {
             chai
                 .request(app)
-                .get(`/parking_lots/${parkingLotOne._id.toString()}/image?type=labelledImage`)
+                .get(`/parking_lots/${parkingLotOne.id.toString()}/image?type=labelledImage`)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.type.should.be.eq('image/jpeg');
@@ -66,10 +66,10 @@ describe('Parking Lot Test', () => {
         it('it should throw 400 error', (done) => {
             chai
                 .request(app)
-                .get(`/parking_lots/${parkingLotOne._id.toString() + '1'}/image`)
+                .get(`/parking_lots/${parkingLotOne.id.toString() + '1'}/image`)
                 .end((err, res) => {
                     res.should.have.status(400);
-                    res.body.error.should.be.eq(`Invalid Id. Document with id: ${parkingLotOne._id.toString() + '1'} does not exists.`);
+                    res.body.error.should.be.eq(`Invalid Id. Document with id: ${parkingLotOne.id.toString() + '1'} does not exists.`);
                     done();
                 });
         });
